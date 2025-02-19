@@ -404,11 +404,15 @@ running properly.</p>
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <pre class="r"><code>Sys.setlocale(&quot;LC_TIME&quot;, &quot;en_US.UTF-8&quot;) # This is to fix my R behavior translating dates to my mother language</code></pre>
 <pre><code>## [1] &quot;en_US.UTF-8&quot;</code></pre>
-<pre class="r"><code>url.df &lt;- &quot;C:\\Users\\Antonio\\Downloads\\repdata_data_activity\\activity.csv&quot;
+<pre class="r"><code>url.data &lt;- &quot;https://github.com/antoniovcm/RepData_PeerAssessment1/raw/refs/heads/master/activity.zip&quot;
 
-url.wd &lt;- &quot;C:\\Users\\Antonio\\Downloads\\repdata_data_activity\\&quot;
+dir.create(&quot;ProjectData&quot;)</code></pre>
+<pre><code>## Warning in dir.create(&quot;ProjectData&quot;): &#39;ProjectData&#39; já existe</code></pre>
+<pre class="r"><code>download.file(url = url.data, destfile = &quot;ProjectData/activity.zip&quot;, mode = &quot;wb&quot;)
 
-setwd(url.wd) # setting working directory to work properly
+unzip(&quot;ProjectData/activity.zip&quot;, exdir = &quot;ProjectData&quot;)
+
+url.df &lt;- &quot;ProjectData/activity.csv&quot;
 
 df.raw &lt;- read.csv(file = url.df,header = T, colClasses = c(&quot;integer&quot;, &quot;Date&quot;, &quot;integer&quot;), na.strings = &quot;NA&quot; ) 
 

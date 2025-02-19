@@ -80,11 +80,21 @@ Sys.setlocale("LC_TIME", "en_US.UTF-8") # This is to fix my R behavior translati
 ```
 
 ``` r
-url.df <- "C:\\Users\\Antonio\\Downloads\\repdata_data_activity\\activity.csv"
+url.data <- "https://github.com/antoniovcm/RepData_PeerAssessment1/raw/refs/heads/master/activity.zip"
 
-url.wd <- "C:\\Users\\Antonio\\Downloads\\repdata_data_activity\\"
+dir.create("ProjectData")
+```
 
-setwd(url.wd) # setting working directory to work properly
+```
+## Warning in dir.create("ProjectData"): 'ProjectData' já existe
+```
+
+``` r
+download.file(url = url.data, destfile = "ProjectData/activity.zip", mode = "wb")
+
+unzip("ProjectData/activity.zip", exdir = "ProjectData")
+
+url.df <- "ProjectData/activity.csv"
 
 df.raw <- read.csv(file = url.df,header = T, colClasses = c("integer", "Date", "integer"), na.strings = "NA" ) 
 
